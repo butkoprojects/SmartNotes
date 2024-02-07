@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="evgen butko" id="1">
+        <!-- Validations -->
+        <preConditions>
+            <not>
+                <tableExists tableName="NOTES"/>
+            </not>
+        </preConditions>
+
+        <!-- Create Table -->
+        <createTable tableName="NOTES">
+            <column name="note_id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="LABEL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TEXT" type="CLOB">
+                <constraints nullable="true"/>
+            </column>
+            <column name="PARENT_ID" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="VARCHAR(10)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <!-- Roll back -->
+        <rollback>
+            <dropTable tableName="NOTES"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="evgen butko" id="2">
+        <!-- Validations -->
+        <preConditions>
+            <not>
+                <tableExists tableName="FOLDERS"/>
+            </not>
+        </preConditions>
+
+        <!-- Create Table -->
+        <createTable tableName="FOLDERS">
+            <column name="folder_id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="LABEL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PARENT_ID" type="VARCHAR(36)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <!-- Roll back -->
+        <rollback>
+            <dropTable tableName="FOLDERS"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="evgen butko" id="3">
+        <!-- Validations -->
+        <preConditions>
+            <not>
+                <tableExists tableName="BOOKS"/>
+            </not>
+        </preConditions>
+
+        <!-- Create Table -->
+        <createTable tableName="BOOKS">
+            <column name="book_id" type="VARCHAR(36)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="LABEL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Roll back -->
+        <rollback>
+            <dropTable tableName="BOOKS"/>
+        </rollback>
+    </changeSet>
+
+<!--    <changeSet author="evgen butko" id="4">-->
+<!--        <preConditions>-->
+<!--            <tableExists tableName="BOOKS"/>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            INSERT INTO BOOKS VALUES (1, 'Yevhen Book');-->
+<!--            INSERT INTO BOOKS VALUES (2, 'Sefia Book');-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet author="evgen butko" id="5">-->
+<!--        <preConditions>-->
+<!--            <tableExists tableName="FOLDERS"/>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (3, 'Yevhen Book - Folder1', 1);-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (4, 'Yevhen Book - Folder2', 1);-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (5, 'Yevhen Book - Folder3', 1);-->
+
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (6, 'Sofia Book - Folder1', 2);-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (7, 'Sofia Book - Folder2', 2);-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (8, 'Sofia Book - Folder3', 2);-->
+
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (9, 'Folder - Folder 1', 3);-->
+<!--            INSERT INTO FOLDERS(folder_id, label, parent_id) VALUES (10, 'Folder - Folder 1', 3);-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet author="evgen butko" id="6">-->
+<!--        <preConditions>-->
+<!--            <tableExists tableName="NOTES"/>-->
+<!--        </preConditions>-->
+<!--        <sql>-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id, status) VALUES (9, 'Note1', '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}', 3, 'opened');-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (10, 'Note2', '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}', 4);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (11, 'Note3', '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}', 5);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id, status) VALUES (12, 'Note4', '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',6, 'opened');-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (13, 'Note5', '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}',7);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (14, 'Note6','{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"Hello","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}', 8);-->
+
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (15, 'Note7', 'Note7, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 3);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (16, 'Note8', 'Note8, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 4);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (17, 'Note9', 'Note9, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.',5);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (18, 'Note10', 'Note10, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.',6);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (19, 'Note11', 'Note11, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.',7);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (20, 'Note12','Note12, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 8);-->
+
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (21, 'Note13','Note13, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 1);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (22, 'Note14','Note14, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 1);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (23, 'Note15','Note15, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 2);-->
+<!--            INSERT INTO NOTES(note_id, label, text, parent_id) VALUES (24, 'Note16','Note16, In Spring Boot, by default, SQL database initialization is only performed when using an embedded in-memory database. Script-based DataSource initialization is performed, by default, before any JPA EntityManagerFactory beans are created. So when using Hibernate, it is recommended to set ‘spring.jpa.defer-datasource-initialization‘ property to ‘false‘. It will make sure that DML statements are executed after the Hibernate (EntityManagerFactory bean) has been initialized properly.', 2);-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+</databaseChangeLog>

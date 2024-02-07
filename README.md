@@ -57,3 +57,15 @@ You can learn more in the
 [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+https://reflectoring.io/dont-use-spring-profile-annotation/
+
+
+## Start App In Dev Mode
+
+You need to have jar file of application, otherwise start backend from Idea and comment jar running in main.js
+
+1) yarn start
+2) yarn electron:start

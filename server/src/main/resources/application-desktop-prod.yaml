@@ -1,0 +1,16 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/main.xml
+
+  datasource:
+    url: jdbc:h2:mem:liquibaseDB
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: false
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
